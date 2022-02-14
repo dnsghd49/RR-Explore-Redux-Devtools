@@ -8,17 +8,23 @@ export const todoReducer = createSlice({
     name: 'todos',
     initialState,
     reducers: {
-        increment: (state) => {
-            return { value: state.value + 1 }
+        addTodo: (state, action) => {
+            return { items: [...state.items, action.payload] }
         },
-        decrement: (state) => {
-            return { value: state.value - 1 }
+        removeOne: (state, action) => {
+            console.log(action)
+            let array = [...state.items]
+            let index = action.payload
+            if (index !== -1) {
+                array.splice(index, 1)
+                return { items: array }
+            }
         },
-        incrementByAmount: (state, action) => {
-            return { value: state.value + action.payload }
+        cleartodo: () => {
+            return { todo: [] }
         }
     }
 })
 
-export const { increment, decrement, incrementByAmount } = todoReducer.actions
+export const { addTodo, removeOne, clearTodo } = todoReducer.actions
 export default todoReducer
